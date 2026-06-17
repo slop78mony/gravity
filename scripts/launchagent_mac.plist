@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  LaunchAgent para macOS — ejecuta auto_optimize.py automáticamente
+  cuando el iPad está conectado y el sistema está encendido.
+
+  INSTALACIÓN (una sola vez):
+    1. Edita los campos REEMPLAZAR_* de abajo
+    2. Copia este archivo:
+         cp launchagent_mac.plist ~/Library/LaunchAgents/com.ipadoptimizer.plist
+    3. Actívalo:
+         launchctl load ~/Library/LaunchAgents/com.ipadoptimizer.plist
+
+  DESACTIVAR:
+    launchctl unload ~/Library/LaunchAgents/com.ipadoptimizer.plist
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.ipadoptimizer</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/python3</string>
+    <string>REEMPLAZAR_CON_RUTA_COMPLETA/gravity/scripts/auto_optimize.py</string>
+    <string>--path</string>
+    <string>REEMPLAZAR_CON_RUTA_IPAD_O_ICLOUD</string>
+    <string>--email</string>
+    <string>REEMPLAZAR_CON_TU_EMAIL@gmail.com</string>
+    <string>--smtp-user</string>
+    <string>REEMPLAZAR_CON_TU_EMAIL@gmail.com</string>
+    <string>--smtp-pass</string>
+    <string>REEMPLAZAR_CON_CONTRASENA_DE_APP_GMAIL</string>
+    <string>--clean</string>
+  </array>
+
+  <!-- Ejecutar cada 6 horas (21600 segundos) -->
+  <key>StartInterval</key>
+  <integer>21600</integer>
+
+  <!-- También ejecutar al conectar al sistema de archivos -->
+  <key>WatchPaths</key>
+  <array>
+    <string>/Volumes</string>
+  </array>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/ipad_optimizer.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/tmp/ipad_optimizer_error.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>
